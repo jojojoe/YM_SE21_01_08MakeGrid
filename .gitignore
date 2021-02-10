@@ -1,0 +1,7 @@
+MGymMakeGrid.xcodeproj/xcuserdata/
+MGymMakeGrid.xcworkspace/
+Pods/
+*.swp
+Podfile.lock
+.DS_Store
+MGymMakeGrid.xcodeproj/project.xcworkspace/xcuserdata/
