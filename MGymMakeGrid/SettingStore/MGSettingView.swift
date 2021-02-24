@@ -12,24 +12,35 @@ import Defaults
 import NoticeObserveKit
 
 
-let AppName: String = "Followers' Widget Pro"
+let AppName: String = "Post Grids"
 let purchaseUrl = ""
-let TermsofuseURLStr = "http://jazzy-boat.surge.sh/Terms_of_use.htm"
-let PrivacyPolicyURLStr = "http://jazzy-boat.surge.sh/Privacy_Agreement.htm"
+let TermsofuseURLStr = "http://late-language.surge.sh/Terms_of_use.htm"
+let PrivacyPolicyURLStr = "http://late-language.surge.sh/Privacy_Agreement.htm"
 
-let feedbackEmail: String = "getwidgetprocreate@yahoo.com"
+let feedbackEmail: String = "postgridsmakerlike@126.com"
 let AppAppStoreID: String = ""
 
 
 class MGSettingView: UIView {
 
     var upVC: UIViewController?
+    let closeBtn = UIButton(type: .custom)
+    let privacyBtn = UIButton(type: .custom)
+    let termsBtn = UIButton(type: .custom)
+    let feedbackBtn = UIButton(type: .custom)
+    let loginBtn = UIButton(type: .custom)
+    let logoutBtn = UIButton(type: .custom)
+    
+    let accountBgView = UIView()
+    let coinInfoBgView = UIView()
+    let userNameLabel = UILabel()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         setupView()
-        
+        updateUserAccountStatus()
         
     }
     
@@ -38,6 +49,23 @@ class MGSettingView: UIView {
     }
     
 
+}
+
+extension MGSettingView {
+    func updateUserAccountStatus() {
+        if let userModel = LoginManage.currentLoginUser() {
+            let userName  = userModel.userName
+            userNameLabel.text = (userName?.count ?? 0) > 0 ? userName : "Tourist"
+            accountBgView.isHidden = false
+            logoutBtn.isHidden = false
+            loginBtn.isHidden = true
+        } else {
+            userNameLabel.text = ""
+            accountBgView.isHidden = true
+            logoutBtn.isHidden = true
+            loginBtn.isHidden = false
+        }
+    }
 }
 
 extension MGSettingView {
@@ -52,7 +80,7 @@ extension MGSettingView {
             $0.top.left.bottom.right.equalToSuperview()
         }
         
-        let closeBtn = UIButton(type: .custom)
+        
         closeBtn.image(UIImage(named: "setting_close_ic"))
         addSubview(closeBtn)
         closeBtn.snp.makeConstraints {
@@ -62,7 +90,6 @@ extension MGSettingView {
         }
         closeBtn.addTarget(self, action: #selector(closeBtnClick(sender:)), for: .touchUpInside)
         
-        let privacyBtn = UIButton(type: .custom)
         privacyBtn.setTitleColor(UIColor.white, for: .normal)
         privacyBtn.titleLabel?.font = UIFont(name: "IBMPlexSans-SemiBold", size: 24)
         privacyBtn.setTitle("Privacy Policy", for: .normal)
@@ -75,7 +102,6 @@ extension MGSettingView {
         privacyBtn.addTarget(self, action: #selector(privacyBtnClick(sender:)), for: .touchUpInside)
         
         
-        let termsBtn = UIButton(type: .custom)
         termsBtn.setTitleColor(UIColor.white, for: .normal)
         termsBtn.titleLabel?.font = UIFont(name: "IBMPlexSans-SemiBold", size: 24)
         termsBtn.setTitle("Terms of use", for: .normal)
@@ -90,10 +116,9 @@ extension MGSettingView {
         termsBtn.addTarget(self, action: #selector(termsBtnClick(sender:)), for: .touchUpInside)
         
         
-        let feedbackBtn = UIButton(type: .custom)
         feedbackBtn.setTitleColor(UIColor.white, for: .normal)
         feedbackBtn.titleLabel?.font = UIFont(name: "IBMPlexSans-SemiBold", size: 24)
-        feedbackBtn.setTitle("Feed back", for: .normal)
+        feedbackBtn.setTitle("Feedback", for: .normal)
         addSubview(feedbackBtn)
         feedbackBtn.snp.makeConstraints {
             $0.width.equalToSuperview()
@@ -102,6 +127,84 @@ extension MGSettingView {
             $0.top.equalTo(privacyBtn.snp.bottom).offset(10)
         }
         feedbackBtn.addTarget(self, action: #selector(feedbackBtnClick(sender:)), for: .touchUpInside)
+        
+        // login
+        
+        loginBtn.setTitleColor(UIColor.white, for: .normal)
+        loginBtn.titleLabel?.font = UIFont(name: "IBMPlexSans-SemiBold", size: 24)
+        loginBtn.setTitle("Log in", for: .normal)
+        addSubview(loginBtn)
+        loginBtn.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(termsBtn.snp.top).offset(-10)
+        }
+        loginBtn.addTarget(self, action: #selector(loginBtnClick(sender:)), for: .touchUpInside)
+        
+        // logout
+        
+        logoutBtn.setTitleColor(UIColor(hexString: "#A8A8A8"), for: .normal)
+        logoutBtn.titleLabel?.font = UIFont(name: "IBMPlexSans-SemiBold", size: 24)
+        logoutBtn.setTitle("Log out", for: .normal)
+        addSubview(logoutBtn)
+        logoutBtn.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(feedbackBtn.snp.bottom).offset(10)
+        }
+        logoutBtn.addTarget(self, action: #selector(logoutBtnClick(sender:)), for: .touchUpInside)
+        
+        accountBgView.backgroundColor = .clear
+        addSubview(accountBgView)
+        
+        accountBgView.snp.makeConstraints {
+            $0.bottom.equalTo(loginBtn.snp.top).offset(0)
+            $0.width.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(70)
+        }
+        
+        // user name label
+        
+        accountBgView.addSubview(userNameLabel)
+        userNameLabel.textAlignment = .center
+        userNameLabel.textColor = .white
+        userNameLabel.font = UIFont(name: "IBMPlexSans-SemiBold", size: 24)
+        userNameLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.equalTo(35)
+            $0.top.equalToSuperview()
+        }
+        
+         
+        // coin info bg view
+        let topCoinLabel = UILabel()
+        topCoinLabel.textAlignment = .right
+        topCoinLabel.text = "\(CoinManager.default.coinCount)"
+        topCoinLabel.textColor = UIColor(hexString: "#FFFFFF")
+        topCoinLabel.font = UIFont(name: "IBMPlexSans-Medium", size: 18)
+        accountBgView.addSubview(topCoinLabel)
+        topCoinLabel.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(14)
+            $0.height.equalTo(35)
+            $0.width.greaterThanOrEqualTo(25)
+        }
+        
+        let coinImageV = UIImageView()
+        coinImageV.image = UIImage(named: "coin_ic")
+        coinImageV.contentMode = .scaleAspectFit
+        accountBgView.addSubview(coinImageV)
+        coinImageV.snp.makeConstraints {
+            $0.centerY.equalTo(topCoinLabel)
+            $0.right.equalTo(topCoinLabel.snp.left).offset(-10)
+            $0.width.height.equalTo(20)
+        }
+        
+
         
         
     }
@@ -120,6 +223,20 @@ extension MGSettingView {
     @objc func feedbackBtnClick(sender: UIButton) {
         feedback()
     }
+    
+    @objc func loginBtnClick(sender: UIButton) {
+        closeBtnClick(sender: closeBtn)
+        if let mainVC = self.upVC as? MGymMainVC {
+            mainVC.showLoginVC()
+        }
+        
+    }
+    
+    @objc func logoutBtnClick(sender: UIButton) {
+        LoginManage.shared.logout()
+        updateUserAccountStatus()
+    }
+    
     
     @objc func closeBtnClick(sender: UIButton) {
         UIView.animate(withDuration: 0.25) {

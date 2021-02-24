@@ -8,26 +8,164 @@
 import UIKit
 import SnapKit
 import Photos
+import DeviceKit
+
+var previewWidth: CGFloat = 330
 
 
-let previewWidth: CGFloat = 330
+
+// he /*
+extension MGymMainVC: HightLigtingHelperDelegate {
+
+    func open(isO: Bool) {
+        debugPrint("isOpen = \(isO)")
+    }
+    
+    func open() -> UIButton? {
+        let coreButton = UIButton()
+        coreButton.setImage(UIImage(named: "li\("kes_btn_grid_ic")"), for: .normal)
+        coreButton.backgroundColor = .clear
+        coreButton.addTarget(self, action: #selector(coreButtonClick(button:)), for: .touchUpInside)
+        self.view.addSubview(coreButton)
+        coreButton.snp.makeConstraints { (make) in
+            make.width.equalTo(624/2)
+            make.height.equalTo(216/2)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+            make.centerX.equalTo(self.view)
+        }
+
+        return coreButton
+    }
+    
+    @objc func coreButtonClick(button: UIButton) {
+        HightLigtingHelper.default.present()
+    }
+    
+    func preparePopupKKAd(placeId: String?, placeName: String?) {
+        
+    }
+
+    
+    func showAd(type: Int, userId: String?, source: String?, complete: @escaping ((Bool, Bool, Bool) -> Void)) {
+        var adType:String = ""
+        switch type {
+        case 0:
+            adType = "KKAd"
+        case 1:
+            adType = "interstitial Ad"
+        case 2:
+            adType = "reward Video Ad"
+        default:
+            break
+        }
+        
+        
+    }
+}
+
+// he */
+
+
 
 class MGymMainVC: UIViewController, UINavigationControllerDelegate {
 
     let previewImgs: [String] = ["gird_cover_bg_1", "gird_cover_bg_2", "gird_cover_bg_3", "gird_cover_bg_4", "gird_cover_bg_5"]
     var collection: UICollectionView!
     let photoBtn = UIButton(type: .custom)
+    var timer:Timer?
+    var currrentPreviewIndex: Int = 0
+    var pageControl: UIPageControl = UIPageControl()
+    
+    var pushLog = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hexString: "#FAFAFA")
+        
+        if Device.current.diagonal == 4.7 || Device.current.diagonal >= 7.9 {
+            previewWidth = 270
+        } else {
+             
+        }
+        // he /*
+        HightLigtingHelper.default.delegate = self
+        // he */
         setupView()
+        setupTimer()
         
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+            [weak self] in
+            guard let `self` = self else {return}
+            self.timer?.fireDate = .distantPast//开始定时器
+        }
+        
+        if pushLog {
+            showLoginVC()
+            
+        }
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        timer?.fireDate = .distantFuture//暂停定器
+    }
+    
+    func setupTimer() {
+        
+        timer = Timer.scheduledTimer(timeInterval:TimeInterval(3), target: self, selector: #selector(timerrun), userInfo: nil, repeats: true)
+        
+        //common里面包含defaultmode和trackongmode，拖动scrollview的时候就变成tracking，不拖动了就是defultmode，trackongmode的优先级高于default，使用common，两种模式可以自由切换,
+        
+        RunLoop.main.add(timer!, forMode: RunLoop.Mode.common)
+        
+        //     timer?.fire()// 立即执行定时器
+        
+//        timer?.fireDate = .distantFuture//暂停定器
+//
+//        timer?.fireDate = .distantPast//开始定时器
+        
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+//            [weak self] in
+//            guard let `self` = self else {return}
+//            self.timer?.fireDate = .distantPast//开始定时器
+//        }
+        
+    }
      
+    @objc func timerrun() {
+        DispatchQueue.main.async {
+            [weak self] in
+            guard let `self` = self else {return}
+            
+            if self.currrentPreviewIndex == self.previewImgs.count - 1 {
+                self.currrentPreviewIndex = 0
+            } else {
+                self.currrentPreviewIndex += 1
+            }
+            
+            let indexPath = IndexPath(item: self.currrentPreviewIndex, section: 0)
+            self.collection.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
+                
+        
+    }
 
+    func showLoginVC() {
+        if LoginManage.currentLoginUser() == nil {
+            let loginVC = LoginManage.shared.obtainVC()
+            loginVC.modalTransitionStyle = .crossDissolve
+            loginVC.modalPresentationStyle = .fullScreen
+            pushLog = false
+            self.present(loginVC, animated: true) {
+            }
+        }
+    }
+    
 }
 
 extension MGymMainVC {
@@ -55,17 +193,27 @@ extension MGymMainVC {
         storeBtn.addTarget(self, action: #selector(storeBtnClick(sender:)), for: .touchUpInside)
         
         // app name
-        let appNameLabel = UILabel()
-        appNameLabel.text = "Grid Conllage"
-        appNameLabel.textColor = UIColor(hexString: "#373737")
-        appNameLabel.font = UIFont(name: "aliensandcows", size: 28)
-        appNameLabel.textAlignment = .left
-        view.addSubview(appNameLabel)
-        appNameLabel.snp.makeConstraints {
-            $0.left.equalTo(settingBtn.snp.left).offset(10)
-            $0.top.equalTo(settingBtn.snp.bottom).offset(6)
-            $0.height.equalTo(24)
-            $0.width.greaterThanOrEqualTo(100)
+//        let appNameLabel = UILabel()
+//        appNameLabel.text = "Post Grids"
+//        appNameLabel.textColor = UIColor(hexString: "#373737")
+//        appNameLabel.font = UIFont(name: "aliensandcows", size: 28)
+//        appNameLabel.textAlignment = .left
+//        view.addSubview(appNameLabel)
+//        appNameLabel.snp.makeConstraints {
+//            $0.left.equalTo(settingBtn.snp.left).offset(10)
+//            $0.top.equalTo(settingBtn.snp.bottom).offset(6)
+//            $0.height.equalTo(42/2)
+//            $0.width.greaterThanOrEqualTo(220/2)
+//        }
+        let appNameImageV = UIImageView()
+        appNameImageV.image = UIImage(named: "gird_home_title_ic")
+        view.addSubview(appNameImageV)
+        appNameImageV.contentMode = .center
+        appNameImageV.snp.makeConstraints {
+            $0.left.equalTo(settingBtn.snp.left).offset(14)
+            $0.top.equalTo(settingBtn.snp.bottom).offset(12)
+            $0.height.equalTo(42/2)
+            $0.width.greaterThanOrEqualTo(220/2)
         }
         
         // preview collection
@@ -76,16 +224,33 @@ extension MGymMainVC {
         collection.showsVerticalScrollIndicator = false
         collection.showsHorizontalScrollIndicator = false
         collection.isScrollEnabled = true
+        collection.isPagingEnabled = true
         collection.backgroundColor = .clear
         collection.delegate = self
         collection.dataSource = self
         view.addSubview(collection)
+        
+        
         collection.snp.makeConstraints {
-            $0.top.equalTo(appNameLabel.snp.bottom).offset(20)
+            $0.top.equalTo(appNameImageV.snp.bottom).offset(20)
             $0.height.equalTo(previewWidth)
             $0.right.left.equalToSuperview()
         }
+        
         collection.register(cellWithClass: MGMainPreviewCell.self)
+        
+        view.addSubview(pageControl)
+        pageControl.numberOfPages = previewImgs.count
+        pageControl.currentPage = 0
+        
+        pageControl.pageIndicatorTintColor = UIColor(hexString: "#C8C8C8")
+        pageControl.currentPageIndicatorTintColor = UIColor(hexString: "#555555")
+        pageControl.snp.makeConstraints {
+            $0.top.equalTo(collection.snp.bottom).offset(10)
+            $0.height.equalTo(12)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(200)
+        }
         
         // photoBtn
         photoBtn.image(UIImage(named: "home_photo_ic"))
@@ -117,7 +282,7 @@ extension MGymMainVC {
         }
         
         // grid btn
-        let gridBtn = MGMainBottonBtn(iconName: "home_grid_ic", name: "Shape")
+        let gridBtn = MGMainBottonBtn(iconName: "home_grid_ic", name: "Grid")
         view.addSubview(gridBtn)
         gridBtn.addTarget(self, action: #selector(gridBtnClick), for: .touchUpInside)
         gridBtn.snp.makeConstraints {
@@ -128,7 +293,7 @@ extension MGymMainVC {
         }
         
         // edit btn
-        let editBtn = MGMainBottonBtn(iconName: "home_edit_ic", name: "Shape")
+        let editBtn = MGMainBottonBtn(iconName: "home_edit_ic", name: "Edit")
         view.addSubview(editBtn)
         editBtn.addTarget(self, action: #selector(editBtnClick), for: .touchUpInside)
         editBtn.snp.makeConstraints {
@@ -334,6 +499,21 @@ extension MGymMainVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == collection {
+            let x = (collection.contentOffset.x + (UIScreen.width / 2))
+            let y: CGFloat = 100
+            let point = CGPoint(x: x, y: y)
+            if let index = collection.indexPathForItem(at: point) {
+                pageControl.currentPage = index.item
+                currrentPreviewIndex = index.item
+            }
+            
+        }
+        
         
     }
 }

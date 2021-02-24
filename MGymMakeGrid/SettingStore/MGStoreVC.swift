@@ -54,7 +54,7 @@ extension MGStoreVC {
         }
         backBtn.addTarget(self, action: #selector(backBtnClick(sender:)), for: .touchUpInside)
         
-        let titleLabel = UILabel(text: "Coins Store")
+        let titleLabel = UILabel(text: "Store")
         titleLabel.font = UIFont(name: "IBMPlexSans-Medium", size: 14)
         titleLabel.textAlignment = .left
         view.addSubview(titleLabel)
@@ -152,7 +152,8 @@ extension MGStoreVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 20)
+        let left = ((UIScreen.width - (138 * 2)) / 3) - 1
+        return UIEdgeInsets(top: 0, left: left, bottom: 20, right: left)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -160,7 +161,7 @@ extension MGStoreVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 14
+        return 10
     }
     
 }
@@ -256,7 +257,7 @@ class GCStoreCell: UICollectionViewCell {
             $0.height.equalTo(25)
         }
         
-        let coinDesLabel = UILabel(text: "coins")
+        let coinDesLabel = UILabel(text: "Coins")
         coinDesLabel.textAlignment = .left
         coinDesLabel.font = UIFont(name: "IBMPlexSans-Bold", size: 18)
         coinDesLabel.textColor = UIColor(hexString: "#121212")

@@ -14,11 +14,15 @@ class MGymSaveVC: UIViewController {
     let backBtn = UIButton(type: .custom)
     let topCoinLabel = UILabel()
     let canvasView = UIView()
-    
+    let contentImageView = UIImageView()
     var bigImage: UIImage
     var previewImage: UIImage
     
-    init(bigImage_save: UIImage, previewImage_small: UIImage) {
+    var isPro: Bool = false
+    
+    
+    init(bigImage_save: UIImage, previewImage_small: UIImage, isPro: Bool) {
+        self.isPro = isPro
         self.bigImage = bigImage_save
         self.previewImage = previewImage_small
         super.init(nibName: nil, bundle: nil)
@@ -31,6 +35,7 @@ class MGymSaveVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(hexString: "#FAFAFA")
         addNotificationObserver()
         setupView()
     }
@@ -65,20 +70,21 @@ class MGymSaveVC: UIViewController {
         canvasView.backgroundColor = .clear
         view.addSubview(canvasView)
         canvasView.snp.makeConstraints {
-            $0.top.equalTo(10)
+            $0.top.equalTo(backBtn.snp.bottom).offset(10)
             $0.centerX.equalToSuperview()
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(-160)
+            $0.bottom.equalToSuperview().offset(-200)
 //            $0.width.height.equalTo(previewWidth)
         }
         
-        let contentImageView = UIImageView()
+        
         contentImageView.image = previewImage
         view.addSubview(contentImageView)
         contentImageView.contentMode = .scaleAspectFit
         canvasView.addSubview(contentImageView)
         contentImageView.snp.makeConstraints {
-            $0.center
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(0)
             $0.width.height.equalTo(previewWidth)
         }
         
@@ -109,7 +115,7 @@ class MGymSaveVC: UIViewController {
         // save btn
         let saveBtn = UIButton(type: .custom)
         saveBtn.backgroundColor = UIColor(hexString: "#373737")
-        saveBtn.setTitle("Save Now", for: .normal)
+        saveBtn.setTitle("Save", for: .normal)
         saveBtn.setTitleColor(UIColor.white, for: .normal)
         saveBtn.titleLabel?.font = UIFont(name: "IBMPlexSans", size: 18)
         view.addSubview(saveBtn)
@@ -122,13 +128,104 @@ class MGymSaveVC: UIViewController {
         saveBtn.layer.cornerRadius = 31
         saveBtn.layer.masksToBounds = true
         saveBtn.addTarget(self, action: #selector(saveBtnClick(sender:)), for: .touchUpInside)
+        
+       // top pro alert
+        setupTopProAlertView()
+        
+        
+    }
+    
+    func setupTopProAlertView() {
+        let topProAlertBgView = UIView()
+        canvasView.addSubview(topProAlertBgView)
+        topProAlertBgView.backgroundColor = .white
+        topProAlertBgView.snp.makeConstraints {
+            $0.right.equalTo(contentImageView)
+//            $0.centerX.equalToSuperview()
+            $0.top.equalTo(5)
+            $0.width.equalTo(200)
+            $0.height.equalTo(40)
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+            [weak self] in
+            guard let `self` = self else {return}
+            topProAlertBgView.roundCorners([.topLeft, .topRight, .bottomLeft], radius: 16)
+        }
+        let topProAlertLabel = UILabel()
+        topProAlertLabel.textColor = UIColor(hexString: "#121212")
+        topProAlertLabel.textAlignment = .center
+        topProAlertLabel.text = "Current is Purchase Item"
+        topProAlertLabel.font = UIFont(name: "IBMPlexSans", size: 13)
+        
+        topProAlertBgView.addSubview(topProAlertLabel)
+        topProAlertLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.height.equalToSuperview()
+        }
+        
+        // status
+        topProAlertBgView.isHidden = !self.isPro
+        
     }
      
     @objc func saveBtnClick(sender: UIButton) {
+        
+        if isPro {
+            
+            if CoinManager.default.coinCount >= CoinManager.default.coinCostCount {
+                showAlert(title: "", message: "Save and cost \(CoinManager.default.coinCostCount) Coins.", buttonTitles: ["Cancel", "Ok"], highlightedButtonIndex: 1) {[weak self] (index) in
+                    guard let `self` = self else {return}
+                    if index == 0 {
+                        // cancel
+                        
+                    } else {
+                        // ok
+                        DispatchQueue.main.async {
+                            [weak self] in
+                            guard let `self` = self else {return}
+                            self.processImageToAlbum()
+                        }
+                    }
+                }
+            } else {
+                showAlert(title: "", message: "Coins shortage. Click and Jump to Store", buttonTitles: ["Cancel", "Ok"], highlightedButtonIndex: 1) {[weak self] (index) in
+                    guard let `self` = self else {return}
+                    if index == 0 {
+                        // cancel
+                        
+                    } else {
+                        // ok
+                        DispatchQueue.main.async {
+                            [weak self] in
+                            guard let `self` = self else {return}
+                            let storeVC = MGStoreVC()
+                            self.navigationController?.pushViewController(storeVC)
+                        }
+                    }
+                }
+            }
+            
+            
+        } else {
+            processImageToAlbum()
+        }
+        
+        
+    }
+
+    
+    func processImageToAlbum() {
+        HUD.show()
         let imgs = processDivisionImages(originalImage: bigImage)
         saveImgsToAlbum(imgs: imgs)
     }
+    
+}
 
+extension MGymSaveVC {
+    func showSaveSuccessAlert() {
+        HUD.success("Photos storage successful.")
+    }
 }
 
 extension MGymSaveVC {
@@ -165,7 +262,16 @@ extension MGymSaveVC {
                 for img in images {
                     PHAssetChangeRequest.creationRequestForAsset(from: img)
                 }
-//                self.showSaveSuccessAlert()
+                DispatchQueue.main.async {
+                    [weak self] in
+                    guard let `self` = self else {return}
+                    self.showSaveSuccessAlert()
+                }
+                
+                if self.isPro {
+                    CoinManager.default.costCoin(coin: CoinManager.default.coinCostCount)
+                }
+                
             }) { (finish, error) in
                 if error != nil {
                     HUD.error("Sorry! please try again")

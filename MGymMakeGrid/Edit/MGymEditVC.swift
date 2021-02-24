@@ -14,6 +14,7 @@ class MGymEditVC: UIViewController {
     
     var contentImage: UIImage
     let contentBgView = UIView()
+    
     let bottomToolBgView = UIView()
     let bottomToolBgContentView = UIView()
     let bottomToolBgTitleLabel = UILabel()
@@ -24,6 +25,10 @@ class MGymEditVC: UIViewController {
     var gridPreview: MGGridPreview!
     var shapeOverlayerImageV: UIImageView = UIImageView()
     
+    var topProAlertBgView = UIView()
+    
+    var isGridTypePro: Bool = false
+    var isShapeTypePro: Bool = false
     
     
     
@@ -50,11 +55,11 @@ class MGymEditVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hexString: "#FAFAFA")
         setupActionBlock()
         setupView()
         setupContentPreview()
-        
+        setupTopProAlertView()
         
         
     }
@@ -62,6 +67,23 @@ class MGymEditVC: UIViewController {
     
     
 
+}
+
+extension MGymEditVC {
+    func checkTopProAlertStatus() {
+        var isStickerPro: Bool = false
+        
+        for stickerView in TMTouchAddonManager.default.addonStickersList {
+            if stickerView.stikerItem?.isPro == true {
+                isStickerPro = true
+            }
+        }
+        if isShapeTypePro == true || isGridTypePro == true || isStickerPro == true {
+            topProAlertBgView.isHidden = false
+        } else {
+            topProAlertBgView.isHidden = true
+        }
+    }
 }
 
 extension MGymEditVC {
@@ -80,9 +102,10 @@ extension MGymEditVC {
         // nextBtn
         
         view.addSubview(nextBtn)
-        nextBtn.setTitle("NEXT", for: .normal)
-        nextBtn.titleLabel?.font = UIFont(name: "IBMPlexSans-Medium", size: 18)
-        nextBtn.setTitleColor(UIColor(hexString: "#373737"), for: .normal)
+//        nextBtn.setTitle("NEXT", for: .normal)
+        nextBtn.setImage(UIImage(named: "next_ic"), for: .normal)
+//        nextBtn.titleLabel?.font = UIFont(name: "IBMPlexSans-Medium", size: 18)
+//        nextBtn.setTitleColor(UIColor(hexString: "#373737"), for: .normal)
         nextBtn.snp.makeConstraints {
             $0.centerY.equalTo(backBtn)
             $0.right.equalTo(-16)
@@ -108,12 +131,13 @@ extension MGymEditVC {
         contentBgView.addGestureRecognizer(tapGesture)
          
         // bottomToolBgView
+        bottomToolBgView.isHidden = true
         view.addSubview(bottomToolBgView)
         bottomToolBgView.backgroundColor = UIColor.white
         bottomToolBgView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(200)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-90)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(0)
         }
         // bottomToolBgContentView
         bottomToolBgView.addSubview(bottomToolBgContentView)
@@ -160,15 +184,19 @@ extension MGymEditVC {
         setupBottomToolViews()
         // bottom btns
         setupBottomBtns()
+        
+        
+        view.bringSubviewToFront(bottomToolBgView)
     }
     
     func setupCanvasView() {
         
         // canvasView
+        canvasView.clipsToBounds = true
         canvasView.backgroundColor = .clear
         contentBgView.addSubview(canvasView)
         canvasView.snp.makeConstraints {
-            $0.top.equalTo(10)
+            $0.centerY.equalToSuperview().offset(-0)
             $0.centerX.equalToSuperview()
             $0.width.height.equalTo(previewWidth)
         }
@@ -186,6 +214,36 @@ extension MGymEditVC {
         
     }
     
+    func setupTopProAlertView() {
+        topProAlertBgView.isHidden = true
+        contentBgView.addSubview(topProAlertBgView)
+        topProAlertBgView.backgroundColor = .white
+        topProAlertBgView.snp.makeConstraints {
+            $0.right.equalTo(shapeOverlayerImageV)
+//            $0.centerX.equalToSuperview()
+            $0.top.equalTo(4)
+            $0.width.equalTo(200)
+            $0.height.equalTo(40)
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+            [weak self] in
+            guard let `self` = self else {return}
+            self.topProAlertBgView.roundCorners([.topLeft, .topRight, .bottomLeft], radius: 16)
+        }
+        let topProAlertLabel = UILabel()
+        topProAlertLabel.textColor = UIColor(hexString: "#121212")
+        topProAlertLabel.textAlignment = .center
+        topProAlertLabel.text = "Current is Purchase Item"
+        topProAlertLabel.font = UIFont(name: "IBMPlexSans", size: 13)
+        
+        topProAlertBgView.addSubview(topProAlertLabel)
+        topProAlertLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.height.equalToSuperview()
+        }
+        
+    }
+    
     func setupBottomToolViews() {
         toolViews.append(gridBar)
         toolViews.append(shapeBar)
@@ -198,14 +256,7 @@ extension MGymEditVC {
         setupFilterBar()
         setupStickerBar()
         setupFontBar()
-        
-        
-//
-        
-//
-        
-       
-        
+  
     }
     
     func setupGridBar() {
@@ -232,6 +283,9 @@ extension MGymEditVC {
             let currentGridIndexs = self.gridPreview.currentGridList ?? []
             let currentAlpha = self.gridPreview.currentAlpha ?? 0.7
             self.gridPreview.updateCoverView(colorStr: currentColor, alpha: currentAlpha, indexs: gridItem.gridIndexs ?? [])
+            
+            self.isGridTypePro = gridItem.isPro ?? false
+            self.checkTopProAlertStatus()
         }
         bottomToolBgContentView.addSubview(gridBar)
         gridBar.snp.makeConstraints {
@@ -245,6 +299,8 @@ extension MGymEditVC {
             [weak self] shapeItem in
             guard let `self` = self else {return}
             self.shapeOverlayerImageV.image = UIImage(named: shapeItem.bigImg ?? "")
+            self.isShapeTypePro = shapeItem.isPro ?? false
+            self.checkTopProAlertStatus()
         }
         bottomToolBgContentView.addSubview(shapeBar)
         shapeBar.snp.makeConstraints {
@@ -275,7 +331,7 @@ extension MGymEditVC {
             guard let `self` = self else {return}
             guard let stickerImage = UIImage(named: item.contentImageName) else {return}
             TMTouchAddonManager.default.addNewStickerAddonWithStickerImage(stickerImage: stickerImage, stickerItem: item, atView: self.canvasView)
-            
+            self.checkTopProAlertStatus()
         }
         bottomToolBgContentView.addSubview(stickerBar)
         stickerBar.snp.makeConstraints {
@@ -285,6 +341,7 @@ extension MGymEditVC {
     
     func setupFontBar() {
         // font bar
+        TMTouchAddonManager.default.isAllwaysAddNewTextView = true
         fontBar.didSelectFontBlock = {
             [weak self] fontName in
             guard let `self` = self else {return}
@@ -326,8 +383,8 @@ extension MGymEditVC {
         bottomBtnBgView.addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.top.equalTo(20)
-            $0.right.equalToSuperview().offset(-20)
-            $0.left.equalToSuperview().offset(20)
+            $0.right.equalToSuperview().offset(-40)
+            $0.left.equalToSuperview().offset(40)
             $0.height.equalTo(49)
         }
         
@@ -354,6 +411,9 @@ extension MGymEditVC {
         canvas_big.frame = CGRect(x: 0, y: 0, width: width_big, height: width_big)
         // gridPreview
         let grid_previewBig = MGGridPreview(frame: CGRect(x: 0, y: 0, width: width_big, height: width_big), image: gridPreview.previewImageView.image ?? UIImage(), widthCount: 3, heightCount: 3)
+        
+        grid_previewBig.updateCoverView(colorStr: self.gridPreview.currentColor ?? "#000000", alpha: self.gridPreview.currentAlpha ?? 0.5 , indexs: self.gridPreview.currentGridList ?? [])
+        grid_previewBig.showLineViewsStatus(isShow: false)
         canvas_big.addSubview(grid_previewBig)
         
         // shapeOverlayerImageV
@@ -369,16 +429,16 @@ extension MGymEditVC {
             stickerImgV.contentMode = .scaleAspectFit
             stickerImgV.bounds = CGRect(x: 0, y: 0, width: stickerView.bounds.size.width * scale, height: stickerView.bounds.size.height * scale)
             stickerImgV.center = CGPoint(x: canvas_big.bounds.size.width / 2, y: canvas_big.bounds.size.height / 2)
-            
-            transformNewAddonView(newAddon: stickerImgV, originAddon: stickerView, scale: scale)
             canvas_big.addSubview(stickerImgV)
+            transformNewAddonView(newAddon: stickerImgV, originAddon: stickerView, scale: scale)
+            
         }
         
         for textView in TMTouchAddonManager.default.addonTextsList {
             let text_Big = UILabel()
-            
+            text_Big.numberOfLines = 0
             text_Big.bounds = CGRect.init(x: 0, y: 0, width: textView.contentLabel.bounds.width * scale, height: textView.contentLabel.bounds.size.height * scale)
-            
+            text_Big.center = CGPoint(x: canvas_big.bounds.size.width / 2, y: canvas_big.bounds.size.height / 2)
             let attri = NSMutableAttributedString.init(attributedString: textView.contentAttributeString)
             let font_big = UIFont(name: textView.textFont.fontName, size: textView.textFont.pointSize * scale) ?? UIFont.systemFont(ofSize: 30 * scale)
             attri.addAttributes([NSAttributedString.Key.font : font_big], range: NSRange(location: 0, length: attri.length))
@@ -390,7 +450,9 @@ extension MGymEditVC {
             canvas_big.addSubview(text_Big)
         }
         
-        let canvasImage_big = canvas_big.snapshotView(afterScreenUpdates: true)?.screenshot
+//        let canvasImage_big = canvas_big.snapshotView(afterScreenUpdates: true)?.screenshot
+        
+        let canvasImage_big = canvas_big.screenshot
         
         return canvasImage_big
     }
@@ -403,9 +465,9 @@ extension MGymEditVC {
         let scaleX = sqrt(originAddon.transform.a * originAddon.transform.a + originAddon.transform.c * originAddon.transform.c)
         let scaleY = sqrt(originAddon.transform.b * originAddon.transform.b + originAddon.transform.d * originAddon.transform.d)
         
-        newAddon.transform.translatedBy(x: translation.x, y: translation.y)
-        newAddon.transform.rotated(by: rotation)
-        newAddon.transform.scaledBy(x: scaleX, y: scaleY)
+        newAddon.transform = newAddon.transform.translatedBy(x: translation.x, y: translation.y)
+        newAddon.transform = newAddon.transform.rotated(by: rotation)
+        newAddon.transform = newAddon.transform.scaledBy(x: scaleX, y: scaleY)
     }
     
     
@@ -424,8 +486,8 @@ extension MGymEditVC {
     @objc func nextBtnClick(sender: UIButton) {
         TMTouchAddonManager.default.cancelCurrentAddonHilightStatus()
         
-        if let image_big = proccessSaveImage(), let smallPreivew = canvasView.snapshotView(afterScreenUpdates: true)?.screenshot {
-            let saveVC = MGymSaveVC.init(bigImage_save: image_big, previewImage_small: smallPreivew)
+        if let image_big = proccessSaveImage(), let smallPreivew = canvasView.screenshot {
+            let saveVC = MGymSaveVC.init(bigImage_save: image_big, previewImage_small: smallPreivew, isPro: !self.topProAlertBgView.isHidden)
             self.navigationController?.pushViewController(saveVC, animated: true)
         }
         
@@ -452,6 +514,7 @@ extension MGymEditVC {
     }
     
     @objc func bottomToolBgDoneBtnClick(sender: UIButton) {
+        bottomToolBgView.isHidden = true
         bottomToolBgContentView.isHidden = true
         TMTouchAddonManager.default.cancelCurrentAddonHilightStatus()
         
@@ -486,7 +549,7 @@ extension MGymEditVC {
         
         TMTouchAddonManager.default.removeStickerAddonActionBlock = { [weak self] in
             guard let `self` = self else {return}
-            
+            self.checkTopProAlertStatus()
             
         }
         
@@ -495,7 +558,7 @@ extension MGymEditVC {
 
 extension MGymEditVC {
     func showToolView(toolView: UIView, titleName: String) {
-        
+        bottomToolBgView.isHidden = false
         bottomToolBgContentView.isHidden = false
         
         bottomToolBgTitleLabel.text = titleName
@@ -514,6 +577,7 @@ extension MGymEditVC {
         self.addChild(textinputVC)
         view.addSubview(textinputVC.view)
         textinputVC.view.alpha = 0
+        textinputVC.startEdit()
         UIView.animate(withDuration: 0.25) {
             [weak self] in
             guard let `self` = self else {return}
@@ -522,10 +586,21 @@ extension MGymEditVC {
         textinputVC.view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
         textinputVC.contentTextView.becomeFirstResponder()
         textinputVC.cancelClickActionBlock = {
+            
             UIView.animate(withDuration: 0.25) { [weak self] in
                 guard let `self` = self else {return}
                 textinputVC.view.alpha = 0
+            } completion: {[weak self] (finished) in
+                guard let `self` = self else {return}
+                DispatchQueue.main.async {
+                    [weak self] in
+                    guard let `self` = self else {return}
+                    textinputVC.removeViewAndControllerFromParentViewController()
+                }
             }
+
+            
+            
             textinputVC.contentTextView.resignFirstResponder()
         }
         textinputVC.doneClickActionBlock = {
@@ -534,6 +609,13 @@ extension MGymEditVC {
             UIView.animate(withDuration: 0.25) { [weak self] in
                 guard let `self` = self else {return}
                 textinputVC.view.alpha = 0
+            } completion: {[weak self] (finished) in
+                guard let `self` = self else {return}
+                DispatchQueue.main.async {
+                    [weak self] in
+                    guard let `self` = self else {return}
+                    textinputVC.removeViewAndControllerFromParentViewController()
+                }
             }
             textinputVC.contentTextView.resignFirstResponder()
             TMTouchAddonManager.default.replaceSetupTextContentString(contentString: contentString, canvasView: self.canvasView)

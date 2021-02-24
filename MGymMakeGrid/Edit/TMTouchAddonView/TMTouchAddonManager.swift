@@ -32,6 +32,8 @@ class TMTouchAddonManager: NSObject {
     let textFontSize =  30
     let textDefaultString: String = "DOUBLE TAP TO TEXT"
     
+    var isAllwaysAddNewTextView: Bool = false
+    
     
     var doubleTapTextAddonActionBlock:((_ contentString: String, _ textFont: UIFont)->Void)?
     var shapeAddonReplaceBarStatusBlock:((_ shapeAddon: TMStickerTouchView)->Void)?
@@ -71,8 +73,6 @@ class TMTouchAddonManager: NSObject {
         if addonStickersList.count == 0 {
             return false
         } else {
-            
-            
             for sticker: TMStickerTouchView in addonStickersList {
                 if let hasPro = sticker.stikerItem?.isPro {
                     if hasPro {
@@ -264,7 +264,7 @@ extension TMTouchAddonManager {
     func selectedOrAddNewCurrentTextAddon(canvasView: UIView) -> Bool {
         guard let textAddon = currentTextAddon else {
             
-            if let lastTextAddon = addonTextsList.last {
+            if let lastTextAddon = addonTextsList.last, isAllwaysAddNewTextView == false {
                 currentTextAddon = lastTextAddon
                 lastTextAddon.setHilight(true)
                 return true

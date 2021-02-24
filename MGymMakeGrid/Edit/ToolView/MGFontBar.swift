@@ -130,11 +130,13 @@ extension SWTextToolView: UICollectionViewDataSource {
             let item = DataManager.default.textFontNames[indexPath.item]
             
             cell.textLabel.text = "Font"
+            cell.textLabel.textColor = UIColor(hexString: "#C1C1C1")
             cell.textLabel.font = UIFont(name: item, size: 12)
+            
             if let currentFont = self.currentFontName, item.contains(currentFont) {
                 cell.textLabel.textColor = UIColor(hexString: "#1B1B1B")
-                cell.textLabel.font = UIFont(name: cell.textLabel.font.fontName, size: 14)
-                 
+                cell.textLabel.font = UIFont(name: currentFont, size: 14)
+
             } else {
                 cell.textLabel.textColor = UIColor(hexString: "#C1C1C1")
                 cell.textLabel.font = UIFont(name: cell.textLabel.font.fontName, size: 12)
@@ -172,15 +174,29 @@ extension SWTextToolView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        if collectionView == collectionColor {
+            return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        } else {
+            return UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        if collectionView == collectionColor {
+            return 20
+        } else {
+            return 8
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        if collectionView == collectionColor {
+            return 20
+        } else {
+            return 8
+        }
     }
     
 }
@@ -189,9 +205,11 @@ extension SWTextToolView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == collectionColor {
             let color = DataManager.default.bgColors[indexPath.item]
+            currentColorHex = color
             didSelectColorBlock?(color)
         } else {
             let fontName = DataManager.default.textFontNames[indexPath.item]
+            currentFontName = fontName
             didSelectFontBlock?(fontName)
         }
         

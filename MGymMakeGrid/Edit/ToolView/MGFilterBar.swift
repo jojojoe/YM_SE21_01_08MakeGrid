@@ -174,7 +174,7 @@ class GCFilterCell: UICollectionViewCell {
         nameLabel.backgroundColor = UIColor(hexString: "#373737")?.withAlphaComponent(0.7)
         nameLabel.textAlignment = .center
         nameLabel.textColor = UIColor(hexString: "#FFFFFF")
-        nameLabel.font = UIFont(name: "IBMPlexSans-Medium", size: 10)
+        nameLabel.font = UIFont(name: "IBMPlexSans-Medium", size: 8)
         nameLabel.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview()
             $0.height.equalTo(20)

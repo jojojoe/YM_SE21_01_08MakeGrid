@@ -52,7 +52,7 @@ class SBTextInputVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.startEdit()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

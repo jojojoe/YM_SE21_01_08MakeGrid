@@ -4,9 +4,9 @@
 target 'MGymMakeGrid' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
+  
   # Pods for MGymMakeGrid
-
+  
   pod 'Then'
   pod 'DeviceKit'
   pod 'SwifterSwift'
@@ -16,43 +16,53 @@ target 'MGymMakeGrid' do
   pod 'GPUImage'
   
   
-#  pod 'JXPagingView/Paging'
-#  pod 'JXSegmentedView'
   
-#  UI
+  #  pod 'JXPagingView/Paging'
+  #  pod 'JXSegmentedView'
+  
+  #  UI
   pod 'SnapKit'
-
-#  Alert
+  
+  #  Alert
   pod 'Alertift'
   pod 'ZKProgressHUD'
-
-#  Store
+  
+  #  Store
   pod 'SwiftyStoreKit'
   pod 'TPInAppReceipt'
   
-#  Debug
+  #  Debug
   pod 'LookinServer', :configurations => ['Debug']
   
   
+  # login
+  pod 'FirebaseUI'
+  pod 'FirebaseUI/Auth'
+  pod 'FirebaseUI/Google'
+  pod 'FirebaseUI/OAuth'
+  pod 'Firebase/Messaging'
+#  pod 'Firebase/Core'
+#  pod 'Firebase/Crashlytics'
+#  pod 'Firebase/Analytics'
   
   # cor
-    pod 'SwifterSwift'
-    pod 'AFNetworking'
-    pod 'SVProgressHUD'
-    pod 'Adjust'
-    
-    pod 'FireAdverting', '~> 0.1.10'
-    
-    pod 'Alamofire'
-    pod 'ZKProgressHUD'
-    pod 'Toast'
-    pod 'CryptoSwift'
-    pod 'DeviceKit'
-    pod 'SwiftyStoreKit'
-    pod 'Defaults'
-    pod 'Alertift'
-    pod 'SwiftyJSON'
-    pod 'RxRelay'
-    pod 'SnapKit'
-    pod 'RxCocoa'
+  pod 'SwifterSwift'
+  pod 'AFNetworking'
+  pod 'SVProgressHUD'
+  pod 'Adjust'
+  
+  pod 'FireAdverting', '~> 0.1.10'
+  
+  pod 'Alamofire'
+  pod 'ZKProgressHUD'
+  pod 'Toast'
+  pod 'CryptoSwift'
+  pod 'DeviceKit'
+  pod 'SwiftyStoreKit'
+  pod 'Defaults'
+  pod 'Alertift'
+  pod 'SwiftyJSON'
+  pod 'RxRelay'
+  pod 'SnapKit'
+  pod 'RxCocoa'
 end

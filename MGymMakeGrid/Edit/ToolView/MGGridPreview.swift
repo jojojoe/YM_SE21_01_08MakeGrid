@@ -16,6 +16,7 @@ class MGGridPreview: UIView {
     var previewImageView: UIImageView = UIImageView()
     
     var coverViews: [UIView] = []
+    var overlayerLineViews: [UIView] = []
     
     var currentAlpha: CGFloat? = 0
     var currentColor: String? = "#000000"
@@ -32,7 +33,7 @@ class MGGridPreview: UIView {
         setupView()
         setupCoversView()
         
-        updateCoverView(colorStr: "#000000", alpha: 0.7, indexs: [0, 2, 4, 8])
+        updateCoverView(colorStr: "#000000", alpha: 0.7, indexs: [])
         
     }
     
@@ -62,6 +63,12 @@ extension MGGridPreview {
     func updateContentImage(img: UIImage) {
         contentImage = img
         previewImageView.image = img
+    }
+    
+    func showLineViewsStatus(isShow: Bool) {
+        for lineView in overlayerLineViews {
+            lineView.isHidden = !isShow
+        }
     }
 }
 
@@ -100,12 +107,14 @@ extension MGGridPreview {
         let widthLineCount = widthLengthCount - 1
         let heightLineCount = heightLengthCount - 1
         
+        overlayerLineViews = []
         for index in 0..<widthLineCount {
             let x = perWidthLengh * CGFloat(index + 1) - (lineWidth/2)
             let shuView = UIView()
             shuView.backgroundColor = UIColor.white
             addSubview(shuView)
             shuView.frame = CGRect(x: x, y: 0, width: lineWidth, height: bounds.height)
+            overlayerLineViews.append(shuView)
         }
         
         for index in 0..<heightLineCount {
@@ -114,8 +123,8 @@ extension MGGridPreview {
             hengView.backgroundColor = UIColor.white
             addSubview(hengView)
             hengView.frame = CGRect(x: 0, y: y, width: bounds.width, height: lineWidth)
+            overlayerLineViews.append(hengView)
         }
-        
         
         
     }

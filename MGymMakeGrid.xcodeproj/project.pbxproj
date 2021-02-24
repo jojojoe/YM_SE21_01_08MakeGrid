@@ -51,7 +51,17 @@
 		EB18F74225C92E4900C0984C /* AdjustConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = EB18F71E25C92E4900C0984C /* AdjustConfig.json */; };
 		EB18F74325C92E4900C0984C /* HighLightingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB18F71F25C92E4900C0984C /* HighLightingViewController.swift */; };
 		EB18F74425C92E4900C0984C /* HightLightingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB18F72025C92E4900C0984C /* HightLightingExtension.swift */; };
-		EBA7B25725CF87B200B423C1 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA7B25625CF87B200B423C1 /* Keychain.swift */; };
+		EB960A7425E3878000EB2B69 /* MGLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB960A7325E3878000EB2B69 /* MGLoginVC.swift */; };
+		EB960A7825E3885500EB2B69 /* IBMPlexSans-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EB960A7625E3885500EB2B69 /* IBMPlexSans-Medium.otf */; };
+		EB960A7925E3885500EB2B69 /* IBMPlexSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EB960A7725E3885500EB2B69 /* IBMPlexSans-Regular.otf */; };
+		EB960ABC25E38F3A00EB2B69 /* CustomizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB960AB525E38F3A00EB2B69 /* CustomizeViewController.swift */; };
+		EB960ABE25E38F3A00EB2B69 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB960AB725E38F3A00EB2B69 /* Keychain.swift */; };
+		EB960ABF25E38F3A00EB2B69 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EB960AB825E38F3A00EB2B69 /* SF-Pro-Text-Regular.otf */; };
+		EB960AC025E38F3A00EB2B69 /* LoginManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB960AB925E38F3A00EB2B69 /* LoginManage.swift */; };
+		EB960AC125E38F3A00EB2B69 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB960ABA25E38F3A00EB2B69 /* UserInfoModel.swift */; };
+		EB960AC225E38F3A00EB2B69 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EB960ABB25E38F3A00EB2B69 /* SF-Pro-Text-Medium.otf */; };
+		EB960AC625E38F4D00EB2B69 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB960AC525E38F4D00EB2B69 /* GoogleService-Info.plist */; };
+		EB960C3325E3B39D00EB2B69 /* IBMPlexSans-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EB960C3225E3B39D00EB2B69 /* IBMPlexSans-SemiBold.otf */; };
 		EBA7B25B25CF87C300B423C1 /* NetworkUtilManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA7B25A25CF87C300B423C1 /* NetworkUtilManager.swift */; };
 		EBA7B27C25CF8A3F00B423C1 /* UIKit+Simply.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA7B27925CF8A3F00B423C1 /* UIKit+Simply.swift */; };
 		EBA7B27D25CF8A3F00B423C1 /* UIApplication+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA7B27A25CF8A3F00B423C1 /* UIApplication+URL.swift */; };
@@ -137,7 +147,19 @@
 		EB18F71E25C92E4900C0984C /* AdjustConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AdjustConfig.json; sourceTree = "<group>"; };
 		EB18F71F25C92E4900C0984C /* HighLightingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighLightingViewController.swift; sourceTree = "<group>"; };
 		EB18F72025C92E4900C0984C /* HightLightingExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HightLightingExtension.swift; sourceTree = "<group>"; };
-		EBA7B25625CF87B200B423C1 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		EB960A7325E3878000EB2B69 /* MGLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGLoginVC.swift; sourceTree = "<group>"; };
+		EB960A7625E3885500EB2B69 /* IBMPlexSans-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Medium.otf"; sourceTree = "<group>"; };
+		EB960A7725E3885500EB2B69 /* IBMPlexSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Regular.otf"; sourceTree = "<group>"; };
+		EB960AB525E38F3A00EB2B69 /* CustomizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizeViewController.swift; sourceTree = "<group>"; };
+		EB960AB725E38F3A00EB2B69 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		EB960AB825E38F3A00EB2B69 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		EB960AB925E38F3A00EB2B69 /* LoginManage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManage.swift; sourceTree = "<group>"; };
+		EB960ABA25E38F3A00EB2B69 /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		EB960ABB25E38F3A00EB2B69 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		EB960AC525E38F4D00EB2B69 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EB960C3025E3B28E00EB2B69 /* MGymMakeGrid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MGymMakeGrid.entitlements; sourceTree = "<group>"; };
+		EB960C3225E3B39D00EB2B69 /* IBMPlexSans-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-SemiBold.otf"; sourceTree = "<group>"; };
+		EB960C3925E3C72200EB2B69 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		EBA7B25A25CF87C300B423C1 /* NetworkUtilManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtilManager.swift; sourceTree = "<group>"; };
 		EBA7B27925CF8A3F00B423C1 /* UIKit+Simply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Simply.swift"; sourceTree = "<group>"; };
 		EBA7B27A25CF8A3F00B423C1 /* UIApplication+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+URL.swift"; sourceTree = "<group>"; };
@@ -230,6 +252,8 @@
 		EB18F6B825C928F900C0984C /* MGymMakeGrid */ = {
 			isa = PBXGroup;
 			children = (
+				EB960C3025E3B28E00EB2B69 /* MGymMakeGrid.entitlements */,
+				EB960AB425E38F3A00EB2B69 /* LogInAbout */,
 				EBA7B48E25D243DD00B423C1 /* OC_File */,
 				EBA7B28025CF8A4700B423C1 /* DataManager */,
 				EBA7B25525CF87A500B423C1 /* ToolStuff */,
@@ -255,6 +279,10 @@
 				EBA7B48A25D243C300B423C1 /* TEST.h */,
 				EBA7B48B25D243C300B423C1 /* TEST.m */,
 				EBA7B48925D243C200B423C1 /* MGymMakeGrid-Bridging-Header.h */,
+				EB960C3225E3B39D00EB2B69 /* IBMPlexSans-SemiBold.otf */,
+				EB960A7625E3885500EB2B69 /* IBMPlexSans-Medium.otf */,
+				EB960A7725E3885500EB2B69 /* IBMPlexSans-Regular.otf */,
+				EB960C3925E3C72200EB2B69 /* Configuration.storekit */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -366,11 +394,24 @@
 			path = HighLightingEx;
 			sourceTree = "<group>";
 		};
+		EB960AB425E38F3A00EB2B69 /* LogInAbout */ = {
+			isa = PBXGroup;
+			children = (
+				EB960AB525E38F3A00EB2B69 /* CustomizeViewController.swift */,
+				EB960AC525E38F4D00EB2B69 /* GoogleService-Info.plist */,
+				EB960AB725E38F3A00EB2B69 /* Keychain.swift */,
+				EB960AB925E38F3A00EB2B69 /* LoginManage.swift */,
+				EB960ABB25E38F3A00EB2B69 /* SF-Pro-Text-Medium.otf */,
+				EB960AB825E38F3A00EB2B69 /* SF-Pro-Text-Regular.otf */,
+				EB960ABA25E38F3A00EB2B69 /* UserInfoModel.swift */,
+			);
+			path = LogInAbout;
+			sourceTree = "<group>";
+		};
 		EBA7B25525CF87A500B423C1 /* ToolStuff */ = {
 			isa = PBXGroup;
 			children = (
 				EBA7B29725CF9ADA00B423C1 /* APCustomBlurView.swift */,
-				EBA7B25625CF87B200B423C1 /* Keychain.swift */,
 				EBA7B25A25CF87C300B423C1 /* NetworkUtilManager.swift */,
 				EBA7B27B25CF8A3F00B423C1 /* HUDExtension.swift */,
 				EBA7B27A25CF8A3F00B423C1 /* UIApplication+URL.swift */,
@@ -397,6 +438,7 @@
 			children = (
 				EBA7B28F25CF992100B423C1 /* MGSettingView.swift */,
 				EBA7B29325CF992C00B423C1 /* MGStoreVC.swift */,
+				EB960A7325E3878000EB2B69 /* MGLoginVC.swift */,
 			);
 			path = SettingStore;
 			sourceTree = "<group>";
@@ -491,6 +533,7 @@
 				EB18F6B325C928F900C0984C /* Frameworks */,
 				EB18F6B425C928F900C0984C /* Resources */,
 				A0DD840F4E922AC44DC039EE /* [CP] Embed Pods Frameworks */,
+				772E2A1877A0EF518333BC99 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -541,21 +584,27 @@
 			files = (
 				EB18F73325C92E4900C0984C /* ic_c_us@3x.png in Resources */,
 				EB18F73C25C92E4900C0984C /* ic_c_c@3x.png in Resources */,
+				EB960C3325E3B39D00EB2B69 /* IBMPlexSans-SemiBold.otf in Resources */,
 				EBA7B4DD25D2862400B423C1 /* ShapeList.json in Resources */,
 				EB18F6C625C928FB00C0984C /* LaunchScreen.storyboard in Resources */,
 				EB18F73625C92E4900C0984C /* ic_c_s@2x.png in Resources */,
 				EB18F74225C92E4900C0984C /* AdjustConfig.json in Resources */,
+				EB960ABF25E38F3A00EB2B69 /* SF-Pro-Text-Regular.otf in Resources */,
 				EB18F72E25C92E4900C0984C /* ic_a_c@3x.png in Resources */,
 				EBA7B4D625D26B7D00B423C1 /* GridList.json in Resources */,
 				EB18F72F25C92E4900C0984C /* login.html in Resources */,
 				EB18F73225C92E4900C0984C /* ic_c_s@3x.png in Resources */,
 				EB18F73925C92E4900C0984C /* detail.html in Resources */,
+				EB960AC225E38F3A00EB2B69 /* SF-Pro-Text-Medium.otf in Resources */,
+				EB960AC625E38F4D00EB2B69 /* GoogleService-Info.plist in Resources */,
 				EB18F73825C92E4900C0984C /* f000029293.png in Resources */,
 				EB18F6C325C928FB00C0984C /* Assets.xcassets in Resources */,
 				EB18F73025C92E4900C0984C /* ic_a_c@2x.png in Resources */,
 				EBA7B42925D22B9A00B423C1 /* FilterList.plist in Resources */,
 				EB18F73B25C92E4900C0984C /* InnLoginSubviews.xib in Resources */,
 				EBA7B4E025D28A3600B423C1 /* StickerList.json in Resources */,
+				EB960A7925E3885500EB2B69 /* IBMPlexSans-Regular.otf in Resources */,
+				EB960A7825E3885500EB2B69 /* IBMPlexSans-Medium.otf in Resources */,
 				EB18F73A25C92E4900C0984C /* ic_c_c@2x.png in Resources */,
 				EB18F73725C92E4900C0984C /* log_in_close_ic@2x.png in Resources */,
 				EB18F73125C92E4900C0984C /* log_in_close_ic@3x.png in Resources */,
@@ -568,6 +617,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		772E2A1877A0EF518333BC99 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MGymMakeGrid/Pods-MGymMakeGrid-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MGymMakeGrid/Pods-MGymMakeGrid-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MGymMakeGrid/Pods-MGymMakeGrid-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		989CF1BF1B9AA4FC9DE90FE3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -621,6 +687,7 @@
 				EBA7B3D925D12BEC00B423C1 /* MGFontBar.swift in Sources */,
 				EB18F72425C92E4900C0984C /* InnTwoFactorLoginView.swift in Sources */,
 				EBA7B3D625D12BDD00B423C1 /* MGStickerBar.swift in Sources */,
+				EB960ABE25E38F3A00EB2B69 /* Keychain.swift in Sources */,
 				EBA7B3CC25D12BA300B423C1 /* MGGridBar.swift in Sources */,
 				EB18F73F25C92E4900C0984C /* HightLigtingHelper.swift in Sources */,
 				EBA7B4A325D2449300B423C1 /* UIView+Frame.m in Sources */,
@@ -634,6 +701,7 @@
 				EBA7B4BC25D2590100B423C1 /* TMTouchStuffView.swift in Sources */,
 				EBA7B4C425D2592900B423C1 /* TouchStuffViewPrivate.m in Sources */,
 				EBA7B27D25CF8A3F00B423C1 /* UIApplication+URL.swift in Sources */,
+				EB960AC025E38F3A00EB2B69 /* LoginManage.swift in Sources */,
 				EB18F73D25C92E4900C0984C /* InnLoginViewController.swift in Sources */,
 				EB18F6BE25C928F900C0984C /* ViewController.swift in Sources */,
 				EBA7B28625CF8A6600B423C1 /* CoinManager.swift in Sources */,
@@ -646,6 +714,7 @@
 				EBA7B27C25CF8A3F00B423C1 /* UIKit+Simply.swift in Sources */,
 				EB18F74325C92E4900C0984C /* HighLightingViewController.swift in Sources */,
 				EBA7B25B25CF87C300B423C1 /* NetworkUtilManager.swift in Sources */,
+				EB960A7425E3878000EB2B69 /* MGLoginVC.swift in Sources */,
 				EB18F72825C92E4900C0984C /* UIKitExtension.swift in Sources */,
 				EBA7B4BA25D2590100B423C1 /* TMTouchAddonManager.swift in Sources */,
 				EB18F72D25C92E4900C0984C /* InnLoginVerifyCodeView.swift in Sources */,
@@ -657,7 +726,6 @@
 				EBA7B3D325D12BD300B423C1 /* MGFilterBar.swift in Sources */,
 				EB18F72525C92E4900C0984C /* VC+Route.swift in Sources */,
 				EB18F6D525C92D5600C0984C /* MGymMainVC.swift in Sources */,
-				EBA7B25725CF87B200B423C1 /* Keychain.swift in Sources */,
 				EB18F72925C92E4900C0984C /* StringExtension.swift in Sources */,
 				EBA7B4B825D2590100B423C1 /* TMStickerTouchView.swift in Sources */,
 				EBA7B4BB25D2590100B423C1 /* TMBgImageTouchView.swift in Sources */,
@@ -665,7 +733,9 @@
 				EB18F72625C92E4900C0984C /* SwiftyTimer.swift in Sources */,
 				EBA7B3DC25D12BFA00B423C1 /* MGTextInputView.swift in Sources */,
 				EBA7B29825CF9ADA00B423C1 /* APCustomBlurView.swift in Sources */,
+				EB960AC125E38F3A00EB2B69 /* UserInfoModel.swift in Sources */,
 				EB18F74425C92E4900C0984C /* HightLightingExtension.swift in Sources */,
+				EB960ABC25E38F3A00EB2B69 /* CustomizeViewController.swift in Sources */,
 				EBA7B3E725D12E8400B423C1 /* DataManager.swift in Sources */,
 				EBA7B3E325D12D7600B423C1 /* SWBgColorView.swift in Sources */,
 				EB18F72C25C92E4900C0984C /* InnRequestHelper.swift in Sources */,
@@ -817,20 +887,23 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MGymMakeGrid/MGymMakeGrid.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.0.0;
+				DEVELOPMENT_TEAM = 598UKLP25U;
 				INFOPLIST_FILE = MGymMakeGrid/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = youmai.MGymMakeGrid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huangxinyu.test.888888;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MGymMakeGrid/MGymMakeGrid-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -841,19 +914,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MGymMakeGrid/MGymMakeGrid.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.0.0;
+				DEVELOPMENT_TEAM = 598UKLP25U;
 				INFOPLIST_FILE = MGymMakeGrid/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = youmai.MGymMakeGrid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huangxinyu.test.888888;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MGymMakeGrid/MGymMakeGrid-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
